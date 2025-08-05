@@ -1,0 +1,10 @@
+*.vsconfig
+*.csproj
+*.sln
+*.vs
+
+[Ll]ibrary/
+[Ll]ogs/
+[Oo]bj/
+[Tt]emp/
+[Uu]serSettings/
