@@ -1,0 +1,14 @@
+{
+    "name": "NotBura.Packages.HeaderFunction.Runtime",
+    "rootNamespace": "NotBura.Packages",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
