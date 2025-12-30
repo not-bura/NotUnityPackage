@@ -21,6 +21,13 @@ namespace NotBura.Packages
             var _caches = m_caches;
             foreach (var method in _methods)
             {
+                // NOTE: Staticは一旦弾く
+                // TODO: Static含め対応したほうが便利なものは対応する
+                if (method.IsStatic)
+                {
+                    continue;
+                }
+
                 var _key = method.DeclaringType;
                 if (false == _caches.TryGetValue(_key, out var _value))
                 {
