@@ -1,0 +1,10 @@
+{
+  "name": "com.not-bura.not-hierarchy",
+  "displayName": "NotHierarchy",
+  "author": { "name": "not-bura" },
+  "version": "0.0.1",
+  "unity": "6000.3",
+  "dependencies": {
+    "com.not-bura.not-extensions": "https://github.com/not-bura/NotUnityPackage.git?path=Assets/NotExtensions#feature/Packages/NotExtensions"
+  }
+}

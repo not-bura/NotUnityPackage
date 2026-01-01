@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.notbura.not-extensions": "https://github.com/NotBura/NotUnityPackage.git?path=Assets/NotExtensions#feature/Packages/NotExtensions",
     "com.unity.ide.visualstudio": "2.0.26"
   }
 }
