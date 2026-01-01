@@ -50,12 +50,9 @@ namespace NotBura.Packages
                 // NOTE: (bool)_protpertyInfo.GetValue(source, null)をFuncで構築する
                 var _parameter = Expression.Parameter(typeof(object));
                 var _lamda = Expression.Lambda<Func<object, bool>>(
-                    Expression.Convert(
-                        Expression.Property(
-                            Expression.Convert(_parameter, m_awaiterType),
-                            _isCompletedPropertyInfo
-                        ),
-                        typeof(bool)
+                    Expression.Property(
+                        Expression.Convert(_parameter, m_awaiterType),
+                        _isCompletedPropertyInfo
                     ),
                     _parameter
                 );
