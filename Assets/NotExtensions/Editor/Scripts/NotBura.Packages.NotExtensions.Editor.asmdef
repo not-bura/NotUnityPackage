@@ -1,0 +1,16 @@
+{
+    "name": "NotBura.Packages.NotExtensions.Editor",
+    "rootNamespace": "NotBura.Packages",
+    "references": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
