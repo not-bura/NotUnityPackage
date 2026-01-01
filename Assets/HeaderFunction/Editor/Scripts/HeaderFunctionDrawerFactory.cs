@@ -15,7 +15,7 @@ namespace NotBura.Packages
         {
             m_drawers = new();
             var _drawers = m_drawers;
-            var _types = TypeCache.GetTypesWithAttribute<HeaderFunctionDrawerAttirbute>();
+            var _types = TypeCache.GetTypesWithAttribute<CustomHeaderFunctionDrawerAttirbute>();
             foreach (var type in _types)
             {
                 if (false == type.IsSubclassOf(typeof(HeaderFunctionDrawer)))
@@ -23,7 +23,7 @@ namespace NotBura.Packages
                     Debug.LogError("");
                 }
 
-                var _attribute = type.GetCustomAttribute<HeaderFunctionDrawerAttirbute>();
+                var _attribute = type.GetCustomAttribute<CustomHeaderFunctionDrawerAttirbute>();
                 if (_drawers.ContainsKey(_attribute.Type))
                 {
                     Debug.LogError("");

@@ -3,12 +3,12 @@ using System;
 namespace NotBura.Packages
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-    public sealed class HeaderFunctionDrawerAttirbute
+    public sealed class CustomHeaderFunctionDrawerAttirbute
         : Attribute
     {
         public readonly Type Type;
 
-        public HeaderFunctionDrawerAttirbute(Type type)
+        public CustomHeaderFunctionDrawerAttirbute(Type type)
         {
             Type = type;
         }
