@@ -1,0 +1,8 @@
+{
+  "name": "com.notbura.not-extensions",
+  "displayName": "NotExtensions",
+  "author": { "name": "NotBura" },
+  "version": "0.0.1",
+  "unity": "6000.3",
+  "dependencies": {}
+}
