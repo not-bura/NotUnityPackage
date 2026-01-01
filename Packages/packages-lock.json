@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.notbura.not-extensions": {
+      "version": "https://github.com/NotBura/NotUnityPackage.git?path=Assets/NotExtensions#feature/Packages/NotExtensions",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "2358c1c7cb91c71cb6f74bb8a41e24e38fe4e361"
+    },
     "com.unity.ext.nunit": {
       "version": "2.0.5",
       "depth": 2,
