@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
@@ -9,10 +8,6 @@ namespace NotBura.Packages
 {
     public class HeaderFunctionMenu
     {
-        public static Action<object> ResultHandler = context =>
-        {
-            Debug.Log(context);
-        };
         private List<HeaderFunctionMenuData> m_elements;
 
         private class UserData

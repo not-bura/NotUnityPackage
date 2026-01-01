@@ -1,8 +1,9 @@
 {
-    "name": "Unity.InternalAPIEditorBridge.007",
+    "name": "NotBura.Packages.HeaderFunction.Editor",
     "rootNamespace": "NotBura.Packages",
     "references": [
-        "GUID:06a8cf7d0ca9c014d860ced4510ede74"
+        "GUID:06a8cf7d0ca9c014d860ced4510ede74",
+        "GUID:a3b67eb9c6b8e954a8ac9c5ebf5521a5"
     ],
     "includePlatforms": [
         "Editor"
@@ -11,7 +12,7 @@
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
-    "autoReferenced": false,
+    "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false

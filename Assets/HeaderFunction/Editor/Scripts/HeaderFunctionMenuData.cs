@@ -205,7 +205,7 @@ namespace NotBura.Packages
             foreach (var target in targets)
             {
                 var _result = methofInfo.Invoke(target, arguments);
-                HeaderFunctionMenu.ResultHandler?.Invoke(_result);
+                HeaderFunctionHandler.ResultHandler?.Invoke(_result);
             }
         }
 
@@ -226,7 +226,7 @@ namespace NotBura.Packages
                 }
 
                 var _result = _awaitableWrapper.GetResult();
-                HeaderFunctionMenu.ResultHandler?.Invoke(_result);
+                HeaderFunctionHandler.ResultHandler?.Invoke(_result);
             }
         }
 
@@ -255,7 +255,7 @@ namespace NotBura.Packages
                         if (false == _awaitableFactory.IsVoidResult())
                         {
                             var _result = _awaitableWrapper.GetResult();
-                            HeaderFunctionMenu.ResultHandler?.Invoke(_result);
+                            HeaderFunctionHandler.ResultHandler?.Invoke(_result);
                         }
 
                         _awaitableWrappers.RemoveAt(i);

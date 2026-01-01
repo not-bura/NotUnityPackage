@@ -6,8 +6,10 @@ using Object = UnityEngine.Object;
 
 namespace NotBura.Packages
 {
-    public static class HeaderFunctionEditorHeaderItem
+    public static class HeaderFunctionHandler
     {
+        public static Action<object> ResultHandler = DefaultResultHandler;
+
         private static Texture2D m_iconTexture2D;
         private static Dictionary<Type, HeaderFunctionMenu> m_caches;
 
@@ -37,23 +39,29 @@ namespace NotBura.Packages
 
                 _value.Add(method);
             }
+
+            HeaderFunctionEditorHeaderItem.Handler = OnHeaderEditorItem;
         }
 
-        [EditorHeaderItem(typeof(Object))]
-        private static bool OnEditorHeaderItem(Rect rectangle, Object[] targetObjets)
+        private static bool OnHeaderEditorItem(Rect rectangle, Object[] targetObjects)
         {
-            var _type = targetObjets[0].GetType();
-            if (m_caches.TryGetValue(_type, out var _value))
+            var _type = targetObjects[0].GetType();
+            if (m_caches.TryGetValue(_type, out var _menu))
             {
                 if (GUI.Button(rectangle, m_iconTexture2D, EditorStyles.iconButton))
                 {
-                    _value.Show(targetObjets);
+                    _menu.Show(targetObjects);
                 }
 
                 return true;
             }
 
             return false;
+        }
+
+        private static void DefaultResultHandler(object source)
+        {
+            Debug.Log(source);
         }
     }
 }

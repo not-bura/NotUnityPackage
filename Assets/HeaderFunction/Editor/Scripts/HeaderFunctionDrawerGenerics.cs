@@ -19,7 +19,7 @@ namespace NotBura.Packages
         public override void OnGUI(SerializedProperty serializedProperty)
         {
             var _valueProperty = serializedProperty.FindPropertyRelative(nameof(m_value));
-            var _content = EditorGUIUtility.TempContent(m_name);
+            var _content = EditorGUIUtility.TrTempContent(m_name);
             EditorGUILayout.PropertyField(_valueProperty, _content);
         }
 
