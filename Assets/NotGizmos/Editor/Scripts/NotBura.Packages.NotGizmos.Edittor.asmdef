@@ -1,0 +1,18 @@
+{
+    "name": "NotBura.Packages.NotGizmos.Edittor",
+    "rootNamespace": "NotBura.Packages",
+    "references": [
+        "GUID:db779e847d775714eb8feb0c264c802d"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
