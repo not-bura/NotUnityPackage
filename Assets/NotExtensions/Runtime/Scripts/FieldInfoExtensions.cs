@@ -99,19 +99,19 @@ namespace NotBura.Packages
 
         public static Action<object, T> ToSetter<T>(this FieldInfo fieldInfo)
         {
-            var target = Expression.Parameter(typeof(object));
-            var value = Expression.Parameter(typeof(T));
+            var _target = Expression.Parameter(typeof(object));
+            var _value = Expression.Parameter(typeof(T));
 
             return Expression.Lambda<Action<object, T>>(
                 Expression.Assign(
                     Expression.Field(
-                        Expression.Convert(target, fieldInfo.DeclaringType),
+                        Expression.Convert(_target, fieldInfo.DeclaringType),
                         fieldInfo
                     ),
-                    Expression.Convert(value, fieldInfo.FieldType)
+                    Expression.Convert(_value, fieldInfo.FieldType)
                 ),
-                target,
-                value
+                _target,
+                _value
             ).Compile();
         }
     }
