@@ -73,7 +73,7 @@ namespace NotBura.Scraps
 
             if (false == AssetDatabase.AssetPathExists(_path))
             {
-                File.Create(_path);
+                File.Create(_path).Dispose();
                 AssetDatabase.ImportAsset(_path);
             }
 
