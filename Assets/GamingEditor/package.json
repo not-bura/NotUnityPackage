@@ -1,0 +1,8 @@
+{
+  "name": "com.not-bura.gaming-editor",
+  "displayName": "GamingEditor",
+  "author": { "name": "not-bura" },
+  "version": "0.0.1",
+  "unity": "6000.3",
+  "dependencies": {}
+}
