@@ -1,0 +1,16 @@
+{
+    "name": "NotBura.Packages.MasterString.TMPro.Shared",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0b75268664dae9945b224ef03d9a064e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

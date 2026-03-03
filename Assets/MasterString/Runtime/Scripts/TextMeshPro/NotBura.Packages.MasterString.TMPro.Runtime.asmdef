@@ -1,0 +1,25 @@
+{
+    "name": "NotBura.Packages.MasterString.TMPro.Runtime",
+    "rootNamespace": "NotBura.Packages",
+    "references": [
+        "GUID:0b75268664dae9945b224ef03d9a064e",
+        "GUID:8433dedb9ddab454b8bfdeb3be31d10d",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:36fd6e0b518c59e49b0e6c58c7f46aac"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.textmeshpro",
+            "expression": "",
+            "define": "NOT_BURA_MASTER_STRING_ENABLE_TEXTMESHPRO"
+        }
+    ],
+    "noEngineReferences": false
+}

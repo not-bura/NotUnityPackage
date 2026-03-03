@@ -1,0 +1,18 @@
+{
+    "name": "NotBura.Packages.MasterString.Tests",
+    "rootNamespace": "NotBura.Packages",
+    "references": [
+        "GUID:0b75268664dae9945b224ef03d9a064e"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

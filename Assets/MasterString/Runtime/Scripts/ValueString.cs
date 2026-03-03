@@ -1,0 +1,41 @@
+using System;
+using System.Runtime.CompilerServices;
+using UnityEngine;
+
+namespace NotBura.Packages
+{
+    [Serializable]
+    public struct ValueString
+        : IEquatable<ValueString>
+        , IComparable<ValueString>
+    {
+        [SerializeField] private StringIdentifier m_id;
+
+        internal StringIdentifier Id
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => m_id;
+        }
+
+        public ValueString(StringIdentifier id)
+        {
+            m_id = id;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool IsValid()
+        {
+            return m_id.IsValid();
+        }
+
+        public bool Equals(ValueString other)
+        {
+            return m_id.Equals(other.m_id);
+        }
+
+        public int CompareTo(ValueString other)
+        {
+            return m_id.CompareTo(other.m_id);
+        }
+    }
+}
