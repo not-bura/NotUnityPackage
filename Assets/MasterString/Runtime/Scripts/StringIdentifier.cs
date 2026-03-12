@@ -10,6 +10,10 @@ namespace NotBura.Packages
     {
         [SerializeField] private int m_identifer;
 
+#if UNITY_EDITOR
+        public const string EDITOR_ONLY_NAME_IDENTIFIER = nameof(m_identifer);
+#endif
+
         public StringIdentifier(int identifier)
         {
             m_identifer = identifier;

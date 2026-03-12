@@ -11,6 +11,10 @@ namespace NotBura.Packages
     {
         [SerializeField] private StringIdentifier m_id;
 
+#if UNITY_EDITOR
+        public const string EDITOR_ONLY_NAME_ID = nameof(m_id);
+#endif
+
         internal StringIdentifier Id
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
