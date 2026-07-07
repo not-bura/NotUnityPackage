@@ -8,7 +8,7 @@ namespace NotBura.Packages
     [NotGizmosDrawer("Icon")]
     [Serializable]
     public sealed class NotGizmosIconDrawer
-        : NotGizmosDrawer
+        : BaseNotGizmosDrawer
     {
         [SerializeField] private Vector3 m_position;
         [SerializeField] private string m_name;

@@ -5,7 +5,7 @@ using UnityEngine;
 namespace NotBura.Packages
 {
     public class NotGizmosCircleDrawer
-        : NotGizmosDrawer
+        : BaseNotGizmosDrawer
     {
         public override void Draw(NotGizmosDrawContext baseContext, NotGizmosDrawMode drawMode)
         {

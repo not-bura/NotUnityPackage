@@ -8,7 +8,7 @@ namespace NotBura
     [NotGizmosDrawer("LineList")]
     [Serializable]
     public class NotGizmosLineListDrawer
-        : NotGizmosDrawer
+        : BaseNotGizmosDrawer
     {
         [SerializeField] private Vector3[] m_points = new Vector3[]
         {

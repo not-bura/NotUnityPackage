@@ -8,7 +8,7 @@ namespace NotBura
     [NotGizmosDrawer("Sphere")]
     [Serializable]
     public class NotGizmosSphereDrawer
-        : NotGizmosDrawer
+        : BaseNotGizmosDrawer
     {
         [SerializeField] private bool m_isWire = false;
         [SerializeField] private Vector3 m_center = Vector3.zero;

@@ -8,7 +8,7 @@ namespace NotBura
     [NotGizmosDrawer("Ray")]
     [Serializable]
     public class NotGizmosRayDrawer
-        : NotGizmosDrawer
+        : BaseNotGizmosDrawer
     {
         [SerializeField] private Vector3 m_from = Vector3.zero;
         [SerializeField] private Vector3 m_direction = new(1.0f, 0.0f, 0.0f);

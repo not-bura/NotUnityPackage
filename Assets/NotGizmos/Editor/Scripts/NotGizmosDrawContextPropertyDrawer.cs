@@ -4,7 +4,8 @@ using UnityEngine;
 namespace NotBura.Packages
 {
     [CustomPropertyDrawer(typeof(NotGizmosDrawContext))]
-    public sealed class NotGizmosDrawerContextPropertyDrawer : PropertyDrawer
+    public sealed class NotGizmosDrawerContextPropertyDrawer
+        : PropertyDrawer
     {
         private static readonly GUIContent COLOR_CONTENT        = new("Color");
         private static readonly GUIContent TRANSFORM_CONTENT    = new("Transform");
@@ -18,43 +19,43 @@ namespace NotBura.Packages
         private SerializedProperty m_rotationProp;
         private SerializedProperty m_scaleProp;
 
-        public override void OnGUI(Rect pos_, SerializedProperty prop_, GUIContent label_)
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             var _singleLine = EditorGUIUtility.singleLineHeight;
             var _lineHeight = _singleLine + EditorGUIUtility.standardVerticalSpacing;
-            var _width = pos_.width;
+            var _width = position.width;
 
-            pos_.height = _singleLine;
+            position.height = _singleLine;
 
             {
-                prop_.isExpanded = EditorGUI.Foldout(pos_, prop_.isExpanded, label_);
-                pos_.y += _lineHeight;
+                property.isExpanded = EditorGUI.Foldout(position, property.isExpanded, label);
+                position.y += _lineHeight;
             }
 
-            if (prop_.isExpanded)
+            if (property.isExpanded)
             {
                 EditorGUI.indentLevel++;
 
-                var _colorProp = m_colorProp ??= prop_.FindPropertyRelative("m_color");
-                var _transformProp = m_transformProp ??= prop_.FindPropertyRelative("m_transform");
-                var _posProp = m_positionProp ??= prop_.FindPropertyRelative("m_position");
-                var _rotProp = m_rotationProp ??= prop_.FindPropertyRelative("m_rotation");
-                var _scaleProp = m_scaleProp ??= prop_.FindPropertyRelative("m_scale");
+                var _colorProp = m_colorProp ??= property.FindPropertyRelative("m_color");
+                var _transformProp = m_transformProp ??= property.FindPropertyRelative("m_transform");
+                var _posProp = m_positionProp ??= property.FindPropertyRelative("m_position");
+                var _rotProp = m_rotationProp ??= property.FindPropertyRelative("m_rotation");
+                var _scaleProp = m_scaleProp ??= property.FindPropertyRelative("m_scale");
 
-                EditorGUI.PropertyField(pos_, _colorProp, COLOR_CONTENT);
-                pos_.y += _lineHeight;
+                EditorGUI.PropertyField(position, _colorProp, COLOR_CONTENT);
+                position.y += _lineHeight;
 
-                EditorGUI.PropertyField(pos_, _transformProp, TRANSFORM_CONTENT);
-                pos_.y += _lineHeight;
+                EditorGUI.PropertyField(position, _transformProp, TRANSFORM_CONTENT);
+                position.y += _lineHeight;
 
-                EditorGUI.PropertyField(pos_, _posProp, POSITION_CONTENT);
-                pos_.y += _lineHeight;
+                EditorGUI.PropertyField(position, _posProp, POSITION_CONTENT);
+                position.y += _lineHeight;
 
-                EditorGUI.PropertyField(pos_, _rotProp, ROTATION_CONTENT);
-                pos_.y += _lineHeight;
+                EditorGUI.PropertyField(position, _rotProp, ROTATION_CONTENT);
+                position.y += _lineHeight;
 
-                EditorGUI.PropertyField(pos_, _scaleProp, SCALE_CONTENT);
-                pos_.y += _lineHeight;
+                EditorGUI.PropertyField(position, _scaleProp, SCALE_CONTENT);
+                position.y += _lineHeight;
 
                 EditorGUI.indentLevel--;
             }

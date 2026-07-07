@@ -9,6 +9,8 @@ namespace NotBura.Packages
     public sealed class NotGizmosTrigger
         : MonoBehaviour
     {
+        [SerializeField] private NotGizmosProperty p;
+
         private void OnDrawGizmos()
         {
 

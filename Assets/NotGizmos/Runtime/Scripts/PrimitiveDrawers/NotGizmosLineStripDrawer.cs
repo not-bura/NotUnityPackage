@@ -7,7 +7,7 @@ namespace NotBura
     [NotGizmosDrawer("LineStrip")]
     [Serializable]
     public class NotGizmosLineStripDrawer
-        : NotGizmosDrawer
+        : BaseNotGizmosDrawer
     {
         [SerializeField] private bool m_isLoop = true;
         [SerializeField] Vector3[] m_points = new Vector3[]
