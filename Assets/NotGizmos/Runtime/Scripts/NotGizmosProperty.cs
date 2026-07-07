@@ -18,7 +18,7 @@ namespace NotBura.Packages
         [SerializeField] private bool m_enabled = true;
         [SerializeField] private NotGizmosDrawContext m_context = new();
         [SerializeField] private NotGizmosDrawMode m_drawMode = NotGizmosDrawMode.Default;
-        [SerializeReference] private List<NotGizmosDrawer> m_drawers = new();
+        [SerializeReference] private List<BaseNotGizmosDrawer> m_drawers = new();
 
         public const string EDITOR_ONLY_NAME_ENABLED = nameof(m_enabled);
         public const string EDITOR_ONLY_NAME_CONTEXT = nameof(m_context);
@@ -49,7 +49,7 @@ namespace NotBura.Packages
             set => m_drawMode = value;
         }
 
-        public List<NotGizmosDrawer> Drawers
+        public List<BaseNotGizmosDrawer> Drawers
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => m_drawers;

@@ -17,12 +17,12 @@ namespace NotBura.Packages
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            EditorGUI.BeginProperty(position, label, property);
-
             var _serial = property.serializedObject;
             _serial.UpdateIfRequiredOrScript();
 
-            var _singleLine = EditorGUIUtility.singleLineHeight;
+            EditorGUI.BeginProperty(position, label, property);
+
+            var _singleLine = EditorGUIUtility.singleLineHeight - 4.0f;
             var _lineHeight = _singleLine + EditorGUIUtility.standardVerticalSpacing;
             var _width = position.width;
             position.height = _singleLine;
@@ -30,7 +30,7 @@ namespace NotBura.Packages
             var _isArrayElement = _serial.FindProperty(fieldInfo.Name).isArray;
 
             {// BG
-                var _rect = new Rect(0.0f, 0.0f, _width + 22.0f, _singleLine);
+                var _rect = new Rect(0.0f, position.y, _width + 22.0f, _singleLine);
                 if (_isArrayElement)
                 {
                     _rect.x -= 13.0f;
@@ -45,7 +45,7 @@ namespace NotBura.Packages
                     position.x,
                     _isArrayElement
                         ? position.y
-                        : position.y - 2.0f,
+                        : position.y,
                     position.width,
                     position.height
                 );
@@ -70,6 +70,10 @@ namespace NotBura.Packages
 
                 EditorGUI.PrefixLabel(_rect, s_enabledGUIContent);
                 _rect.x += 52;
+                if (false == _isArrayElement)
+                {
+                    _rect.y += 2.0f;
+                }
                 var _prop = property.FindPropertyRelative(NotGizmosProperty.EDITOR_ONLY_NAME_ENABLED);
                 _prop.boolValue = EditorGUI.Toggle(_rect, _prop.boolValue);
 
@@ -165,7 +169,7 @@ namespace NotBura.Packages
             {
                 var _root = new AdvancedDropdownItem("Drawers");
                 var _drawers = TypeCache
-                    .GetTypesDerivedFrom<NotGizmosDrawer>()
+                    .GetTypesDerivedFrom<BaseNotGizmosDrawer>()
                     .Where(x =>
                         false == x.IsAbstract
                         && false == x.IsInterface

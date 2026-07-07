@@ -9,7 +9,7 @@ namespace NotBura.Packages
     [NotGizmosDrawer("Cube")]
     [Serializable]
     public sealed class NotGizmosCubeDrawer
-        : NotGizmosDrawer
+        : BaseNotGizmosDrawer
         , INotGizmosWire
     {
         [SerializeField] private bool m_isWire      = false;

@@ -5,7 +5,8 @@ using UnityEngine;
 namespace NotBura.Packages
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-    public sealed class NotGizmosDrawerAttribute : Attribute
+    public sealed class NotGizmosDrawerAttribute
+        : Attribute
     {
         private string m_name;
 
@@ -27,7 +28,7 @@ namespace NotBura.Packages
     }
 
     [Serializable]
-    public class NotGizmosDrawer
+    public abstract class BaseNotGizmosDrawer
     {
         [SerializeField] protected bool m_enabled = true;
         [SerializeField] protected NotGizmosDrawContext m_context = new();
@@ -38,7 +39,7 @@ namespace NotBura.Packages
             get => m_enabled;
         } 
 
-        public NotGizmosDrawer()
+        public BaseNotGizmosDrawer()
         {
         }
 

@@ -6,7 +6,7 @@ namespace NotBura.Packages
 {
     [Serializable]
     public class NotGizmosCapsuleDrawer
-        : NotGizmosDrawer
+        : BaseNotGizmosDrawer
     {
         private static Vector3[] s_points = Get();
 

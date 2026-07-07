@@ -7,7 +7,7 @@ namespace NotBura.Packages
     [NotGizmosDrawer("Line")]
     [Serializable]
     public class NotGizmosLineDrawer
-        : NotGizmosDrawer
+        : BaseNotGizmosDrawer
     {
         [SerializeField] private Vector3 m_from = Vector3.zero;
         [SerializeField] private Vector3 m_to = new(1.0f, 0.0f, 0.0f);

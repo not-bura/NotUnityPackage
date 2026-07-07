@@ -8,7 +8,7 @@ namespace NotBura
     [NotGizmosDrawer("Mesh")]
     [Serializable]
     public class NotGizmosMeshDrawer
-        : NotGizmosDrawer
+        : BaseNotGizmosDrawer
     {
         [SerializeField] private bool m_isWire = false;
         [SerializeField] private Vector3 m_postion = Vector3.zero;

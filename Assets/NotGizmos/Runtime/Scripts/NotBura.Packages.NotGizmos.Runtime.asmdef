@@ -2,9 +2,7 @@
     "name": "NotBura.Packages.NotGizmos.Runtime",
     "rootNamespace": "NotBura.Packages",
     "references": [],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

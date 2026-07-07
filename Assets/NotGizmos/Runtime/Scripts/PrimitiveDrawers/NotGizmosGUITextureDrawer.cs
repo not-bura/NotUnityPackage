@@ -9,7 +9,7 @@ namespace NotBura.Packages
     [NotGizmosDrawer("GUITexture")]
     [Serializable]
     public sealed class NotGizmosGUITextureDrawer
-        : NotGizmosDrawer
+        : BaseNotGizmosDrawer
     {
         [SerializeField] private Rect m_rect;
         [SerializeField] private Texture m_texture;

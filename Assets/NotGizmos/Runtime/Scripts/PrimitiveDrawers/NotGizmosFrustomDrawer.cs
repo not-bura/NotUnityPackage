@@ -8,7 +8,8 @@ namespace NotBura.Packages
 {
     [NotGizmosDrawer("Frustom")]
     [Serializable]
-    public class NotGizmosFrustomDrawer : NotGizmosDrawer
+    public sealed class NotGizmosFrustomDrawer
+        : BaseNotGizmosDrawer
     {
         [SerializeField] private Vector3 m_center   = Vector3.zero;
         [SerializeField] private float m_fov        = 60.0f;
