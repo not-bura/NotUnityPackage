@@ -141,16 +141,6 @@ namespace NotBura.Scraps
             if (_h < 4.0f) return new(0x00, x, 0xFF, 0);
             if (_h < 5.0f) return new(x, 0x00, 0xFF, 0);
             return new(0xFF, 0x00, x, 0);
-
-            var _color = Mathf.Clamp01(tween) == 1.0f
-                ? 0xFF_FF_FF
-                : (int)(tween * 0xFF_FF_FF);
-
-            var _r = (byte)((_color >> (8 * 2)) & 0xFF);
-            var _g = (byte)((_color >> (8 * 1)) & 0xFF);
-            var _b = (byte)((_color >> (8 * 0)) & 0xFF);
-
-            return new(_r, _g, _b, 0);
         }
 
         private static void WriteStreamWriter(in Color32 color, string path)
