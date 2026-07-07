@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+using System;
 using UnityEngine;
 
 namespace NotBura.Packages
@@ -10,13 +10,7 @@ namespace NotBura.Packages
         : MonoBehaviour
         , ITMProMasterString
     {
-        [SerializeField] private StringIdentifier m_id;
-
-        public StringIdentifier Id
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => m_id;
-        }
+        [SerializeReference] private ITMProMasterStringSource m_source;
 
         private void Awake()
         {
@@ -26,6 +20,18 @@ namespace NotBura.Packages
         private void OnDestroy()
         {
             MasterStringTrackerBridge.Unregister(this);
+        }
+
+        public void SetText(ReadOnlySpan<char> source)
+        {
+        }
+
+        public void SetText(MasterString source)
+        {
+        }
+
+        public void SetText(ValueString source)
+        {
         }
     }
 }

@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Unity.Collections;
 using UnityEngine;
 
 namespace NotBura.Packages
 {
     [CreateAssetMenu(menuName = "MasterString")]
-    public class MasterStringContainer : ScriptableObject
+    public sealed class MasterStringContainer
+        : ScriptableObject
     {
         public MasterStringModel Model;
 
@@ -161,11 +163,16 @@ namespace NotBura.Packages
         private int GetMaxOverlap(string a, string b)
         {
             int max = Math.Min(a.Length, b.Length) - 1;
+
             for (int len = max; len > 0; len--)
             {
                 // Spanを使うと数千件でも高速
-                if (a.AsSpan().EndsWith(b.AsSpan(0, len))) return len;
+                if (a.AsSpan().EndsWith(b.AsSpan(0, len)))
+                {
+                    return len;
+                }
             }
+
             return 0;
         }
     }

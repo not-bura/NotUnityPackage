@@ -43,18 +43,31 @@ namespace NotBura.Packages
         private (string, Dictionary<string, (int, int)>) Optimize(IEnumerable<string> input)
         {
             // 1. 重複排除と包含関係の除去（「こんにちは」があれば「こん」を消す）
-            var words = input.Distinct().OrderByDescending(s => s.Length).ToList();
-            var uniqueWords = words.Where(w => !words.Any(other => other != w && other.Contains(w))).ToList();
+            var words = input
+                .Distinct()
+                .OrderByDescending(s => s.Length)
+                .ToList();
+            var uniqueWords = words
+                .Where(w => !words
+                    .Any(other =>
+                        other != w
+                        && other.Contains(w)
+                    )
+                )
+                .ToList();
 
             // 2. 結合処理（重なりを統合）
-            var combined = uniqueWords.Count > 0 ? uniqueWords[0] : "";
-            var remaining = uniqueWords.Skip(1).ToList();
+            var combined = uniqueWords.Count > 0
+                ? uniqueWords[0]
+                : "";
+            var remaining = uniqueWords
+                .Skip(1)
+                .ToList();
 
             while (remaining.Count > 0)
             {
                 int bestOverlap = -1;
                 int bestIndex = 0;
-                bool isPrefix = false;
 
                 for (int i = 0; i < remaining.Count; i++)
                 {
@@ -64,7 +77,6 @@ namespace NotBura.Packages
                     {
                         bestOverlap = overlap;
                         bestIndex = i;
-                        isPrefix = false;
                     }
                 }
 
@@ -75,10 +87,12 @@ namespace NotBura.Packages
             }
 
             // 3. 元の全ワードに対して、結合後のバッファ内のどこにあるかを記録
-            var resultMap = input.Distinct().ToDictionary(
-                word => word,
-                word => (combined.IndexOf(word), word.Length)
-            );
+            var resultMap = input
+                .Distinct()
+                .ToDictionary(
+                    word => word,
+                    word => (combined.IndexOf(word), word.Length)
+                );
 
             return (combined, resultMap);
         }

@@ -4,11 +4,9 @@ namespace NotBura.Packages
 {
     public interface ITMProMasterString
     {
-        public StringIdentifier Id { get; }
-
-        public void SetText(ReadOnlySpan<char> source) {}
-        public void SetText(MasterString source) {}
-        public void SetText(ValueString source) {}
+        public void SetText(ReadOnlySpan<char> source);
+        public void SetText(MasterString source);
+        public void SetText(ValueString source);
 
         #region SetText for PrimitiveType
 
@@ -29,6 +27,5 @@ namespace NotBura.Packages
         //public void SetText(bool source);
 
         #endregion SetText for PrimitiveType
-
     }
 }

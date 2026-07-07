@@ -3,13 +3,17 @@
     "rootNamespace": "NotBura.Packages",
     "references": [
         "GUID:0b75268664dae9945b224ef03d9a064e",
-        "GUID:36fd6e0b518c59e49b0e6c58c7f46aac"
+        "GUID:fa99df1923457f746b8e1a669e6f7447",
+        "GUID:36fd6e0b518c59e49b0e6c58c7f46aac",
+        "GUID:d8b63aba1907145bea998dd612889d6b",
+        "GUID:e0cd26848372d4e5c891c569017e11f1",
+        "GUID:2665a8d13d1b3f18800f46e256720795"
     ],
     "includePlatforms": [
         "Editor"
     ],
     "excludePlatforms": [],
-    "allowUnsafeCode": false,
+    "allowUnsafeCode": true,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,

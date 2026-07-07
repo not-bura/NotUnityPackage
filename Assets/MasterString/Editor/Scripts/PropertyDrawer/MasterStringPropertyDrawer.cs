@@ -12,7 +12,7 @@ namespace NotBura.Packages
         )
         {
             var _valueProperty = property
-                .FindPropertyRelative(StringIdentifier.EDITOR_ONLY_NAME_IDENTIFIER);
+                .FindPropertyRelative(StringIdentifier.EDITOR_ONLY_NAME_VALUE);
 
             var _preview = _valueProperty.intValue;
             var _value = EditorGUI.IntField(position, label, _preview);
@@ -62,7 +62,7 @@ namespace NotBura.Packages
                 {
                     if (_value != m_cacheId)
                     {
-                        var stringProvider = MasterStringAPI.Provider;
+                        var stringProvider = MasterStringAPI.MasterStringProvider;
                         if (stringProvider != null)
                         {
                             var _text = stringProvider.Resolve(_value);

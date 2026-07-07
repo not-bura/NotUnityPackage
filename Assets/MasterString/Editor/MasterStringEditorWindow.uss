@@ -1,0 +1,16 @@
+/* タブ全体 */
+.unity-tab-view {
+    width: 100%;
+    height: 100%;
+}
+
+/* タブボタン */
+.unity-tab {
+    cursor: default;
+    padding: 4px 8px;
+}
+
+/* 選択中タブ */
+.unity-tab:selected {
+    background-color: #3a3a3a;
+}

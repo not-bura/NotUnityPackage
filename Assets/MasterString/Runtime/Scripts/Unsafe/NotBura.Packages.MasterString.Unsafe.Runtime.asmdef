@@ -1,13 +1,10 @@
 {
-    "name": "NotBura.Packages.MasterString.Runtime",
+    "name": "NotBura.Packages.MasterString.Unsafe.Runtime",
     "rootNamespace": "NotBura.Packages",
-    "references": [
-        "GUID:fa99df1923457f746b8e1a669e6f7447",
-        "GUID:e0cd26848372d4e5c891c569017e11f1"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
-    "allowUnsafeCode": false,
+    "allowUnsafeCode": true,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,

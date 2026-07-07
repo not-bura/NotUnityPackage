@@ -4,31 +4,69 @@ namespace NotBura.Packages
 {
     public static class MasterStringAPI
     {
-        private static IMasterStrinProvider<StringIdentifier> s_provider;
+        private static IMasterStrinProvider<StringIdentifier> s_masterStringProvider;
+        private static IMasterStrinProvider<StringIdentifier> s_valueStringProvider;
 
-        public static IMasterStrinProvider<StringIdentifier> Provider
+        // TODO: エディタ上で表示する用で一旦用意したが必要ない気がする
+        private static IMasterStrinProvider<StringIdentifier> s_editorOnlyStringProvider;
+
+        public static IMasterStrinProvider<StringIdentifier> MasterStringProvider
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => s_provider;
+            get => s_masterStringProvider;
         }
 
-        public static void Register(IMasterStrinProvider<StringIdentifier> provider)
+        public static IMasterStrinProvider<StringIdentifier> ValueStringProvider
         {
-            s_provider = provider;
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => s_valueStringProvider;
+        }
+
+        public static void RegisterMasterStringProvider(IMasterStrinProvider<StringIdentifier> value)
+        {
+            s_masterStringProvider = value;
+        }
+
+        public static void RegisterValueStringProvider(IMasterStrinProvider<StringIdentifier> value)
+        {
+            s_valueStringProvider = value;
         }
 
         public static void Dispose()
         {
-            if (s_provider is not null)
+            if (s_masterStringProvider is not null)
             {
-                s_provider.Dispose();
-                s_provider = null;
+                s_masterStringProvider.Dispose();
+                s_masterStringProvider = null;
+            }
+
+            if (s_valueStringProvider is not null)
+            {
+                s_masterStringProvider.Dispose();
+                s_valueStringProvider = null;
             }
         }
 
-        public static void Clear()
+        public static void DisposeMasterStringProvider()
         {
-            s_provider = null;
+            if (s_masterStringProvider is null)
+            {
+                return;
+            }
+
+            s_masterStringProvider.Dispose();
+            s_masterStringProvider = null;
+        }
+
+        public static void DisposeValueStringProvider()
+        {
+            if (s_valueStringProvider is null)
+            {
+                return;
+            }
+
+            s_valueStringProvider.Dispose();
+            s_valueStringProvider = null;
         }
     }
 }

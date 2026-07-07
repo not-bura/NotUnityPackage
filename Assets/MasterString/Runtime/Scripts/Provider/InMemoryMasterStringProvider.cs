@@ -28,12 +28,12 @@ namespace NotBura.Packages
     }
 
     [Serializable]
-    public sealed class MasterStringProvider
+    public sealed class InMemoryMasterStringProvider
         : IMasterStrinProvider<StringIdentifier>
     {
         private MasterStringModel m_state;
 
-        public MasterStringProvider(MasterStringModel state)
+        public InMemoryMasterStringProvider(MasterStringModel state)
         {
             m_state = state;
         }

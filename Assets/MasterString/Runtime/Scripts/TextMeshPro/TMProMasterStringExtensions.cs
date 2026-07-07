@@ -8,7 +8,7 @@ namespace NotBura.Packages
 //#if NOT_BURA_MASTER_STRING_ENABLE_TEXTMESHPRO
         public static void SetText(this TMP_Text target, MasterString source)
         {
-            var _provider = MasterStringAPI.Provider;
+            var _provider = MasterStringAPI.MasterStringProvider;
             var _text = _provider.Resolve(source.Id);
 
             var _pool = ArrayPool<char>.Shared;

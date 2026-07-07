@@ -1,13 +1,11 @@
 using System.Collections.Generic;
 using System.Text;
-using UnityEditor;
 using UnityEngine;
 
 namespace NotBura.Packages
 {
     public class MasterStringTests
     {
-        [UnityEditor.MenuItem("MasterString/Test")]
         public static void MenuItem()
         {
             var _table = new List<MasterStringModel.Element>()
@@ -46,9 +44,9 @@ namespace NotBura.Packages
                 Table = _table,
             };
 
-            var _provider = new MasterStringProvider(_state);
+            var _provider = new InMemoryMasterStringProvider(_state);
 
-            MasterStringAPI.Register(_provider);
+            MasterStringAPI.RegisterMasterStringProvider(_provider);
 
             MasterStringAPI.Dispose();
         }

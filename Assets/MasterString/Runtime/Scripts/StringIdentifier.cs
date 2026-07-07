@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace NotBura.Packages
@@ -8,30 +9,36 @@ namespace NotBura.Packages
         : IEquatable<StringIdentifier>
         , IComparable<StringIdentifier>
     {
-        [SerializeField] private int m_identifer;
+        [SerializeField] private int m_value;
 
 #if UNITY_EDITOR
-        public const string EDITOR_ONLY_NAME_IDENTIFIER = nameof(m_identifer);
+        public const string EDITOR_ONLY_NAME_VALUE = nameof(m_value);
+
+        public int EditorOnlyValue
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => m_value;
+        }
 #endif
 
-        public StringIdentifier(int identifier)
+        public StringIdentifier(int value)
         {
-            m_identifer = identifier;
+            m_value = value;
         }
 
         public bool IsValid()
         {
-            return m_identifer == 0;
+            return m_value <= 0;
         }
 
         public bool Equals(StringIdentifier other)
         {
-            return m_identifer == other.m_identifer;
+            return m_value == other.m_value;
         }
 
         public int CompareTo(StringIdentifier other)
         {
-            return m_identifer.CompareTo(other.m_identifer);
+            return m_value.CompareTo(other.m_value);
         }
 
         public override bool Equals(object obj)
@@ -41,17 +48,17 @@ namespace NotBura.Packages
 
         public override int GetHashCode()
         {
-            return m_identifer;
+            return m_value;
         }
 
         public static bool operator ==(StringIdentifier lhs, StringIdentifier rhs)
         {
-            return lhs.m_identifer == rhs.m_identifer;
+            return lhs.m_value == rhs.m_value;
         }
 
         public static bool operator !=(StringIdentifier lhs, StringIdentifier rhs)
         {
-            return lhs.m_identifer != rhs.m_identifer;
+            return lhs.m_value != rhs.m_value;
         }
     }
 }
