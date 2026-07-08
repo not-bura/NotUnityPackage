@@ -7,67 +7,6 @@ using Utility = NotBura.Packages.TMProMasterStringUtility;
 
 namespace NotBura.Packages
 {
-    public static class TMProMasterStringContainer
-    {
-        private static List<Element> m_elements;
-        private static List<byte> m_binary;
-
-        public struct Element
-        {
-            public int Key;
-            public string Value;
-        }
-
-        public static int Generate(ReadOnlySpan<char> source)
-        {
-            return 0;
-        }
-
-        public static bool TryGetCharactor(char key, TMP_FontAsset asset, out TMP_Character character)
-        {
-            return asset.characterLookupTable.TryGetValue(key, out character);
-        }
-    }
-
-    public interface ITMProMasterStringSource
-    {
-        public ReadOnlySpan<char> GetText();
-    }
-
-    [Serializable]
-    public class TMProMasterStringSource
-        : ITMProMasterStringSource
-    {
-        [SerializeField] private MasterString m_source;
-        
-        public TMProMasterStringSource(MasterString source)
-        {
-            m_source = source;
-        }
-
-        public ReadOnlySpan<char> GetText()
-        {
-            return MasterStringAPI.MasterStringProvider.Resolve(m_source.Id);
-        }
-    }
-
-    [Serializable]
-    public class TMProValueStringSource
-        : ITMProMasterStringSource
-    {
-        [SerializeField] private ValueString m_source;
-
-        public TMProValueStringSource(ValueString source)
-        {
-            m_source = source;
-        }
-
-        public ReadOnlySpan<char> GetText()
-        {
-            return MasterStringAPI.ValueStringProvider.Resolve(m_source.Id);
-        }
-    }
-
 #if UNITY_EDITOR
     [ExecuteAlways]
 #endif
@@ -103,10 +42,12 @@ namespace NotBura.Packages
             MasterStringTrackerBridge.Unregister(this);
         }
 
+#if UNITY_EDITOR
         protected override void OnValidate()
         {
             base.OnValidate();
         }
+#endif
 
         protected override void OnPopulateMesh(VertexHelper vh)
         {

@@ -6,10 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
-using Unity.IO.LowLevel.Unsafe;
 using UnityEditor;
 using UnityEngine;
-using UnsafeOptimize;
 
 namespace NotBura.Packages
 {
@@ -70,8 +68,10 @@ namespace NotBura.Packages
                 Debug.Log(c);
 
                 {
-                    var s = UnsafeConvert.StringToPtr(a);
-                    var d = UnsafeConvert.PtrToString(s);
+                    var ptr = Unsafe.AsPointer(ref a);
+
+                    var s = Unsafe.AsPointer(ref a);
+                    var d = Unsafe.AsRef<string>(s);
                     Debug.Log(d);
                 }
                     {
