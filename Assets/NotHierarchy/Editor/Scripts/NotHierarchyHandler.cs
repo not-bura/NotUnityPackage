@@ -16,9 +16,9 @@ namespace NotBura.Packages
         [InitializeOnLoadMethod]
         private static void InitializeOnLoad()
         {
-            var instance = Singleton.instance;
+            var _instance = Singleton.instance;
 
-            if (instance == null || false == instance.Enabled)
+            if (_instance == null || false == _instance.Enabled)
             {
                 return;
             }
@@ -40,14 +40,14 @@ namespace NotBura.Packages
             EditorApplication.RepaintHierarchyWindow();
         }
 
-        private static void OnHierarchyGUI(int instanceId, Rect selectionRect)
+        private static void OnHierarchyGUI(int instanceID, Rect selectionRect)
         {
-            if (EditorUtility.EntityIdToObject(instanceId) is not GameObject go)
+            if (EditorUtility.EntityIdToObject(instanceID) is not GameObject go)
             {
                 return;
             }
 
-            HierarchyGUI(go, instanceId, selectionRect);
+            HierarchyGUI(go, instanceID, selectionRect);
         }
 
         private static void HierarchyGUI(GameObject go, int instanceId, in Rect selectionRect)
@@ -89,7 +89,7 @@ namespace NotBura.Packages
         private static void UnderLine(GameObject go, in Rect selectionRect)
         {
             const float SIZE = 1.0f;
-            var rect = new Rect(
+            var _rect = new Rect(
                 0.0f,
                 selectionRect.y + selectionRect.height - SIZE,
                 selectionRect.x + selectionRect.width + 16.0f,
@@ -98,7 +98,7 @@ namespace NotBura.Packages
 
             var _color = Color.black;
 
-            DrawRect(rect, _color);
+            DrawRect(_rect, _color);
         }
 
         private static void Depth(GameObject go, in Rect selectionRect)
@@ -118,9 +118,9 @@ namespace NotBura.Packages
                 SIZE
             );
 
-            var color = Color.HSVToRGB((_depth - 1) * 0.1f % 1.0f, 0.6f, 0.8f);
+            var _color = Color.HSVToRGB((_depth - 1) * 0.1f % 1.0f, 0.6f, 0.8f);
 
-            DrawRect(_rect, color);
+            DrawRect(_rect, _color);
         }
 
         private static void ComponentIcons(GameObject go, in Rect selectionRect)
@@ -155,14 +155,14 @@ namespace NotBura.Packages
         private static void ActiveToggle(GameObject go, int instanceId, in Rect selectionRect)
         {
             // NOTE: Overrideのデザインに極力被らぬように1ズラす
-            var rect = new Rect(
+            var _rect = new Rect(
                 32.0f + 1.0f,
                 selectionRect.y,
                 16.0f,
                 16.0f
             );
 
-            var _active = GUI.Toggle(rect, go.activeSelf, string.Empty, EditorStyles.radioButton);
+            var _active = GUI.Toggle(_rect, go.activeSelf, string.Empty, EditorStyles.radioButton);
             if (go.activeSelf != _active)
             {
                 var selectObjects = Selection.objects;
@@ -183,13 +183,13 @@ namespace NotBura.Packages
 
         private static int GetHierarchyDepth(Transform transform)
         {
-            int depth = 0;
+            var _depth = 0;
             while (transform.parent != null)
             {
-                depth++;
+                _depth++;
                 transform = transform.parent;
             }
-            return depth;
+            return _depth;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -210,7 +210,7 @@ namespace NotBura.Packages
 
         private static void DrawTexture(in Rect rect, Texture texture, in Color color)
         {
-            var vec4Zero = Vector4.zero;
+            var _vec4Zero = Vector4.zero;
             GUI.DrawTexture(
                 rect,
                 texture,
@@ -218,8 +218,8 @@ namespace NotBura.Packages
                 true,
                 0.0f,
                 color,
-                vec4Zero,
-                vec4Zero
+                _vec4Zero,
+                _vec4Zero
             );
         }
 
@@ -351,9 +351,9 @@ namespace NotBura.Packages
 
         private static bool TrySetActiveSelections(GameObject go, int instanceId, Object[] selections, bool active)
         {
-            foreach (var select in selections)
+            foreach (var _select in selections)
             {
-                if (select.GetInstanceID() == instanceId)
+                if (_select.GetInstanceID() == instanceId)
                 {
                     Undo.RecordObjects(selections, $"{(active ? "Activate" : "Deactivate")} GameObjects '{go.name} and {selections.Length - 1} '");
                     foreach (var obj in selections)

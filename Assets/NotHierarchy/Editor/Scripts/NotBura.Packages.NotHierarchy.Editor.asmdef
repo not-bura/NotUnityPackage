@@ -2,7 +2,7 @@
     "name": "NotBura.Pckages.NotHierarchy.Editor",
     "rootNamespace": "NotBura.Packages",
     "references": [
-        "GUID:f3440bc2cf6b1fa47bcdfb6115ba2614"
+        "NotBura.Packages.NotExtensions.Runtime"
     ],
     "includePlatforms": [
         "Editor"
