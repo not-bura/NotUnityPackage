@@ -2,7 +2,7 @@
   "name": "com.not-bura.not-gizmos",
   "displayName": "NotGizmos",
   "author": { "name": "not-bura" },
-  "version": "0.0.1",
+  "version": "0.0.2",
   "unity": "6000.3",
   "dependencies": {}
 }
