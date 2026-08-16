@@ -2,7 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using Context = NotBura.Packages.NotGizmosDrawContext;
-using Types = NotBura.Packages.NotGizmosDrawMode;
+using States = NotBura.Packages.NotGizmosDrawStates;
 
 namespace NotBura.Packages
 {
@@ -34,38 +34,20 @@ namespace NotBura.Packages
             get => m_size;
         }
 
-        public override void Draw(Context baseContext, Types type)
+        public override void Draw(Context context, States state)
         {
-            var _thisContext = m_context;
+            var _current = m_context;
 
-            Gizmos.color = baseContext.Color * _thisContext.Color;
-            Gizmos.matrix = NotGizmosUtility.Matrix(baseContext, _thisContext);
+            Gizmos.color = context.Color * _current.Color;
+            Gizmos.matrix = NotGizmosUtility.Matrix(context, _current);
 
-            switch (type)
+            if (state is States.ForceWire || state is States.Default && m_isWire)
             {
-                case Types.Default:
-                    {
-                        if (m_isWire)
-                        {
-                            Gizmos.DrawWireCube(m_center, m_size);
-                        }
-                        else
-                        {
-                            Gizmos.DrawCube(m_center, m_size);
-                        }
-                        return;
-                    }
-                case Types.ForcePlane:
-                    {
-                        Gizmos.DrawCube(m_center, m_size);
-                        return;
-                    }
-                case Types.ForceWire:
-                    {
-                        Gizmos.DrawWireCube(m_center, m_size);
-                        return;
-                    }
+                Gizmos.DrawWireCube(m_center, m_size);
+                return;
             }
+
+            Gizmos.DrawCube(m_center, m_size);
         }
     }
 }

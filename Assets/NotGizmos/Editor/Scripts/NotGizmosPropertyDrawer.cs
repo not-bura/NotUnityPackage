@@ -96,7 +96,7 @@ namespace NotBura.Packages
 
                 {
                     var _prop = property.FindPropertyRelative(NotGizmosProperty.EDITOR_ONLY_NAME_DRAW_STATE);
-                    _prop.enumValueIndex = EditorGUI.Popup(position, "DrawMode", _prop.enumValueIndex, Enum.GetNames(typeof(NotGizmosDrawMode)));
+                    _prop.enumValueIndex = EditorGUI.Popup(position, "DrawMode", _prop.enumValueIndex, Enum.GetNames(typeof(NotGizmosDrawStates)));
                     position.y += _lineHeight;
                 }
 

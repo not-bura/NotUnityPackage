@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace NotBura.Packages
 {
-    public enum NotGizmosDrawMode
+    public enum NotGizmosDrawStates
     {
         Default,
         ForcePlane,
@@ -17,13 +17,13 @@ namespace NotBura.Packages
     {
         [SerializeField] private bool m_enabled = true;
         [SerializeField] private NotGizmosDrawContext m_context = new();
-        [SerializeField] private NotGizmosDrawMode m_drawMode = NotGizmosDrawMode.Default;
+        [SerializeField] private NotGizmosDrawStates m_drawMode = NotGizmosDrawStates.Default;
         [SerializeReference] private List<BaseNotGizmosDrawer> m_drawers = new();
 
-        public const string EDITOR_ONLY_NAME_ENABLED = nameof(m_enabled);
-        public const string EDITOR_ONLY_NAME_CONTEXT = nameof(m_context);
+        public const string EDITOR_ONLY_NAME_ENABLED    = nameof(m_enabled);
+        public const string EDITOR_ONLY_NAME_CONTEXT    = nameof(m_context);
         public const string EDITOR_ONLY_NAME_DRAW_STATE = nameof(m_drawMode);
-        public const string EDITOR_ONLY_NAME_ELEMENTS = nameof(m_drawers);
+        public const string EDITOR_ONLY_NAME_ELEMENTS   = nameof(m_drawers);
 
         public bool Enabled
         {
@@ -41,7 +41,7 @@ namespace NotBura.Packages
             set => m_context = value;
         }
 
-        public NotGizmosDrawMode DrawMode
+        public NotGizmosDrawStates DrawMode
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get => m_drawMode;
@@ -74,14 +74,14 @@ namespace NotBura.Packages
 
             try
             {
-                foreach (var drawer in _drawers)
+                foreach (var _drawer in _drawers)
                 {
-                    if (drawer is null || false == drawer.Enabled)
+                    if (_drawer is null || false == _drawer.Enabled)
                     {
                         continue;
                     }
 
-                    drawer.Draw(_context, _drawMode);
+                    _drawer.Draw(_context, _drawMode);
                 }
             }
             finally

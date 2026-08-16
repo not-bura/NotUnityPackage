@@ -1,18 +1,18 @@
-using System.Buffers;
-using UnityEditor;
+using System;
 using UnityEngine;
 
 namespace NotBura.Packages
 {
-    public class NotGizmosCircleDrawer
+    [Serializable]
+    public sealed class NotGizmosCircleDrawer
         : BaseNotGizmosDrawer
     {
-        public override void Draw(NotGizmosDrawContext baseContext, NotGizmosDrawMode drawMode)
+        public override void Draw(NotGizmosDrawContext context, NotGizmosDrawStates state)
         {
-            var _cut = 60;
-            var _points = (stackalloc Vector3[_cut]);
+            var _split = 60;
+            var _points = (stackalloc Vector3[_split]);
 
-            var a = 360.0f / _cut * Mathf.Deg2Rad;
+            var a = 360.0f / _split * Mathf.Deg2Rad;
 
             for (int i = 0; i < _points.Length; ++i)
             {

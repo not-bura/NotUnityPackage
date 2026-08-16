@@ -2,7 +2,7 @@ using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using Context = NotBura.Packages.NotGizmosDrawContext;
-using Types = NotBura.Packages.NotGizmosDrawMode;
+using States = NotBura.Packages.NotGizmosDrawStates;
 
 namespace NotBura.Packages
 {
@@ -40,13 +40,12 @@ namespace NotBura.Packages
             get => m_material;
         }
 
-        public override void Draw(Context baseContext, Types type)
+        public override void Draw(Context context, States state)
         {
-            var _thisContext = m_context;
+            var _current = m_context;
 
-            Gizmos.color = baseContext.Color * _thisContext.Color;
-
-            Gizmos.matrix = NotGizmosUtility.Matrix(baseContext, _thisContext);
+            Gizmos.color = context.Color * _current.Color;
+            Gizmos.matrix = NotGizmosUtility.Matrix(context, _current);
 
             var _border = m_border;
             var _left   = _border.left;

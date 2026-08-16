@@ -8,7 +8,7 @@ namespace NotBura.Packages
     public sealed class NotGizmosDrawerAttribute
         : Attribute
     {
-        private string m_name;
+        private readonly string m_name;
 
         public string Name
         {
@@ -43,9 +43,6 @@ namespace NotBura.Packages
         {
         }
 
-        public virtual void Draw(NotGizmosDrawContext baseContext, NotGizmosDrawMode drawMode)
-        {
-
-        }
+        public abstract void Draw(NotGizmosDrawContext context, NotGizmosDrawStates state);
     }
 }

@@ -1,12 +1,11 @@
-using NotBura.Packages;
 using System;
 using UnityEngine;
 
-namespace NotBura
+namespace NotBura.Packages
 {
     [NotGizmosDrawer("LineStrip")]
     [Serializable]
-    public class NotGizmosLineStripDrawer
+    public sealed class NotGizmosLineStripDrawer
         : BaseNotGizmosDrawer
     {
         [SerializeField] private bool m_isLoop = true;
@@ -18,14 +17,12 @@ namespace NotBura
             new(0.0f, 1.0f, 0.0f),
         };
 
-        public override void Draw(NotGizmosDrawContext baseContext, NotGizmosDrawMode type)
+        public override void Draw(NotGizmosDrawContext context, NotGizmosDrawStates state)
         {
-            var _context = m_context;
+            var _current = m_context;
 
-            {
-                Gizmos.color = baseContext.Color * _context.Color;
-                Gizmos.matrix = baseContext.Matrix * _context.Matrix;
-            }
+            Gizmos.color = context.Color * _current.Color;
+            Gizmos.matrix = context.Matrix * _current.Matrix;
 
             Gizmos.DrawLineStrip(m_points, m_isLoop);
         }

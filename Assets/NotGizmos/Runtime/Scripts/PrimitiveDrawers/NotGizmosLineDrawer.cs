@@ -6,7 +6,7 @@ namespace NotBura.Packages
 {
     [NotGizmosDrawer("Line")]
     [Serializable]
-    public class NotGizmosLineDrawer
+    public sealed class NotGizmosLineDrawer
         : BaseNotGizmosDrawer
     {
         [SerializeField] private Vector3 m_from = Vector3.zero;
@@ -28,14 +28,13 @@ namespace NotBura.Packages
             set => m_to = value;
         }
 
-        public override void Draw(NotGizmosDrawContext baseContext, NotGizmosDrawMode type)
+        public override void Draw(NotGizmosDrawContext context, NotGizmosDrawStates states)
         {
-            var _context = m_context;
+            // TODO: 不用なContextが含まれるので全体で適切に扱える方法を考える
+            var _current = m_context;
 
-            {
-                Gizmos.color = baseContext.Color * _context.Color;
-                Gizmos.matrix = baseContext.Matrix * _context.Matrix;
-            }
+            Gizmos.color = context.Color * _current.Color;
+            Gizmos.matrix = context.Matrix * _current.Matrix;
 
             Gizmos.DrawLine(m_from, m_to);
         }

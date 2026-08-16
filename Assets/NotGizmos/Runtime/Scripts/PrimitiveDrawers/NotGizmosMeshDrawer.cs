@@ -1,13 +1,14 @@
-using NotBura.Packages;
 using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using Context = NotBura.Packages.NotGizmosDrawContext;
+using States = NotBura.Packages.NotGizmosDrawStates;
 
-namespace NotBura
+namespace NotBura.Packages
 {
     [NotGizmosDrawer("Mesh")]
     [Serializable]
-    public class NotGizmosMeshDrawer
+    public sealed class NotGizmosMeshDrawer
         : BaseNotGizmosDrawer
     {
         [SerializeField] private bool m_isWire = false;
@@ -65,38 +66,20 @@ namespace NotBura
             set => m_subMeshIndex = value;
         }
 
-        public override void Draw(NotGizmosDrawContext baseContext, NotGizmosDrawMode type)
+        public override void Draw(Context context, States state)
         {
-            var _context = m_context;
+            var _current = m_context;
 
-            Gizmos.color = baseContext.Color * _context.Color;
-            Gizmos.matrix = NotGizmosUtility.Matrix(baseContext, _context);
+            Gizmos.color = context.Color * _current.Color;
+            Gizmos.matrix = NotGizmosUtility.Matrix(context, _current);
 
-            switch (type)
+            if (state is States.ForceWire || state is States.Default && m_isWire)
             {
-                case NotGizmosDrawMode.Default:
-                    {
-                        if (m_isWire)
-                        {
-                            Gizmos.DrawWireMesh(m_mesh, m_subMeshIndex, m_postion, m_rotation, m_scale);
-                        }
-                        else
-                        {
-                            Gizmos.DrawMesh(m_mesh, m_subMeshIndex, m_postion, m_rotation, m_scale);
-                        }
-                    }
-                    break;
-                case NotGizmosDrawMode.ForcePlane:
-                    {
-                        Gizmos.DrawMesh(m_mesh, m_subMeshIndex, m_postion, m_rotation, m_scale);
-                    }
-                    break;
-                case NotGizmosDrawMode.ForceWire:
-                    {
-                        Gizmos.DrawWireMesh(m_mesh, m_subMeshIndex, m_postion, m_rotation, m_scale);
-                    }
-                    break;
+                Gizmos.DrawWireMesh(m_mesh, m_subMeshIndex, m_postion, m_rotation, m_scale);
+                return;
             }
+
+            Gizmos.DrawMesh(m_mesh, m_subMeshIndex, m_postion, m_rotation, m_scale);
         }
     }
 }

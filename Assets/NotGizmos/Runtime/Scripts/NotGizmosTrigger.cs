@@ -9,16 +9,24 @@ namespace NotBura.Packages
     public sealed class NotGizmosTrigger
         : MonoBehaviour
     {
-        [SerializeField] private NotGizmosProperty p;
+        [SerializeField] private bool m_onSelected;
+        [SerializeField] private NotGizmosProperty m_property;
 
         private void OnDrawGizmos()
         {
+            if (m_onSelected)
+            {
+                return;
+            }
 
+            m_property.Draw();
         }
 
         private void OnDrawGizmosSelected()
         {
 
+
+            m_property.Draw();
         }
     }
 }

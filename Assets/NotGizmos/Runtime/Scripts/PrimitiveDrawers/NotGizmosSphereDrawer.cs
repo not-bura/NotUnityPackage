@@ -1,13 +1,14 @@
-using NotBura.Packages;
 using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using Context = NotBura.Packages.NotGizmosDrawContext;
+using States = NotBura.Packages.NotGizmosDrawStates;
 
-namespace NotBura
+namespace NotBura.Packages
 {
     [NotGizmosDrawer("Sphere")]
     [Serializable]
-    public class NotGizmosSphereDrawer
+    public sealed class NotGizmosSphereDrawer
         : BaseNotGizmosDrawer
     {
         [SerializeField] private bool m_isWire = false;
@@ -38,32 +39,20 @@ namespace NotBura
             set => m_radius = value;
         }
 
-        public override void Draw(NotGizmosDrawContext baseContext, NotGizmosDrawMode type)
+        public override void Draw(Context context, States state)
         {
-            var _context = m_context;
+            var _current = m_context;
 
-            Gizmos.color = baseContext.Color * _context.Color;
-            Gizmos.matrix = NotGizmosUtility.Matrix(baseContext, _context);
+            Gizmos.color = context.Color * _current.Color;
+            Gizmos.matrix = NotGizmosUtility.Matrix(context, _current);
 
-            switch (type)
+            if (state is States.ForceWire || state is States.Default && m_isWire)
             {
-                case NotGizmosDrawMode.Default:
-                    if (m_isWire)
-                    {
-                        Gizmos.DrawWireSphere(m_center, Radius);
-                    }
-                    else
-                    {
-                        Gizmos.DrawSphere(m_center, Radius);
-                    }
-                    break;
-                case NotGizmosDrawMode.ForcePlane:
-                    Gizmos.DrawSphere(m_center, Radius);
-                    break;
-                case NotGizmosDrawMode.ForceWire:
-                    Gizmos.DrawWireSphere(m_center, m_radius);
-                    break;
+                Gizmos.DrawWireSphere(m_center, m_radius);
+                return;
             }
+
+            Gizmos.DrawSphere(m_center, m_radius);
         }
     }
 }

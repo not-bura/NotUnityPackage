@@ -1,13 +1,12 @@
-using NotBura.Packages;
 using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace NotBura
+namespace NotBura.Packages
 {
     [NotGizmosDrawer("LineList")]
     [Serializable]
-    public class NotGizmosLineListDrawer
+    public sealed class NotGizmosLineListDrawer
         : BaseNotGizmosDrawer
     {
         [SerializeField] private Vector3[] m_points = new Vector3[]
@@ -26,14 +25,12 @@ namespace NotBura
             set => m_points = value;
         }
 
-        public override void Draw(NotGizmosDrawContext baseContext, NotGizmosDrawMode type)
+        public override void Draw(NotGizmosDrawContext context, NotGizmosDrawStates state)
         {
-            var _context = m_context;
+            var _current = m_context;
 
-            {
-                Gizmos.color = baseContext.Color * _context.Color;
-                Gizmos.matrix = baseContext.Matrix * _context.Matrix;
-            }
+            Gizmos.color = context.Color * _current.Color;
+            Gizmos.matrix = context.Matrix * _current.Matrix;
 
             Gizmos.DrawLineList(m_points);
         }

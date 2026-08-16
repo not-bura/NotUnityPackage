@@ -4,22 +4,22 @@ namespace NotBura.Packages
 {
     public static class NotGizmosUtility
     {
-        public static Matrix4x4 Matrix(NotGizmosDrawContext baseContext_, NotGizmosDrawContext thisContext_)
+        public static Matrix4x4 Matrix(NotGizmosDrawContext @base, NotGizmosDrawContext current)
         {
-            var _baseTransform = baseContext_.Transform;
-            var _thisTransform = thisContext_.Transform;
+            var _baseTransform = @base.Transform;
+            var _currentTransform = current.Transform;
 
-            if (_thisTransform != null)
+            if (_currentTransform != null)
             {
-                return _thisTransform.localToWorldMatrix * thisContext_.Matrix;
+                return _currentTransform.localToWorldMatrix * current.Matrix;
             }
 
             if (_baseTransform != null)
             {
-                return _baseTransform.localToWorldMatrix * baseContext_.Matrix * thisContext_.Matrix;
+                return _baseTransform.localToWorldMatrix * @base.Matrix * current.Matrix;
             }
 
-            return baseContext_.Matrix * thisContext_.Matrix;
+            return @base.Matrix * current.Matrix;
         }
     }
 }

@@ -1,13 +1,12 @@
-using NotBura.Packages;
 using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace NotBura
+namespace NotBura.Packages
 {
     [NotGizmosDrawer("Ray")]
     [Serializable]
-    public class NotGizmosRayDrawer
+    public sealed class NotGizmosRayDrawer
         : BaseNotGizmosDrawer
     {
         [SerializeField] private Vector3 m_from = Vector3.zero;
@@ -21,14 +20,20 @@ namespace NotBura
             set => m_from = value;
         }
 
-        public override void Draw(NotGizmosDrawContext baseContext, NotGizmosDrawMode type)
+        public Vector3 Direction
         {
-            var _context = m_context;
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => m_direction;
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            set => m_direction = value;
+        }
 
-            {
-                Gizmos.color = baseContext.Color * _context.Color;
-                Gizmos.matrix = baseContext.Matrix * _context.Matrix;
-            }
+        public override void Draw(NotGizmosDrawContext context, NotGizmosDrawStates state)
+        {
+            var _current = m_context;
+
+            Gizmos.color = context.Color * _current.Color;
+            Gizmos.matrix = context.Matrix * _current.Matrix;
 
             // NOTE: 内部的にはDrawLineと等価
             Gizmos.DrawRay(m_from, m_direction);

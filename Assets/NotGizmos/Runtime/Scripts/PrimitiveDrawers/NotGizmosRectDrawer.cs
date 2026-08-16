@@ -1,19 +1,14 @@
-using UnityEngine;
+using System;
 
 namespace NotBura.Packages
 {
-    public class NotGizmosRectDrawer : MonoBehaviour
+    [Serializable]
+    public sealed class NotGizmosRectDrawer
+        : BaseNotGizmosDrawer
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        public override void Draw(NotGizmosDrawContext context, NotGizmosDrawStates state)
         {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
+            throw new NotImplementedException();
         }
     }
 }
