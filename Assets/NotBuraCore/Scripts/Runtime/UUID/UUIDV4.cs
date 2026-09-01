@@ -1,10 +1,14 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
 namespace NotBura.Core
 {
+#if UNITY_EDITOR
+    [DebuggerDisplay("{ToString()}")]
+#endif
     [Serializable]
     [StructLayout(LayoutKind.Sequential, Size = 16)]
     public struct UUIDV4
@@ -15,7 +19,7 @@ namespace NotBura.Core
         [SerializeField] private ulong m_high;
         [SerializeField] private ulong m_low;
 
-        public unsafe ref UUID ToMarshalUUID()
+        public unsafe ref UUID ToUUID()
         {
             fixed (void* ptr = &this)
             {
@@ -25,14 +29,20 @@ namespace NotBura.Core
 
         #region interface method
 
-        public readonly bool Equals(UUIDV4 other)
+        public unsafe bool Equals(UUIDV4 other)
         {
-            return IUUID.Equals(m_high, m_low, other.m_high, other.m_low);
+            fixed (void* pointer = &this)
+            {
+                return UnsafeUtility.MemCmp(pointer, &other, 16) == 0;
+            }
         }
 
-        public readonly int CompareTo(UUIDV4 other)
+        public unsafe int CompareTo(UUIDV4 other)
         {
-            return IUUID.CompareTo(m_high, m_low, other.m_high , other.m_low);
+            fixed (void* pointer = &this)
+            {
+                return UnsafeUtility.MemCmp(pointer, &other, 16);
+            }
         }
 
         #endregion interface method
@@ -41,20 +51,23 @@ namespace NotBura.Core
 
         [Obsolete("Call boxing method.")]
 #pragma warning disable CS0809
-        public override readonly bool Equals(object obj)
+        public override bool Equals(object obj)
 #pragma warning restore CS0809
         {
             return obj is UUIDV4 cast && Equals(cast);
         }
 
-        public override readonly int GetHashCode()
+        public override int GetHashCode()
         {
-            return IUUID.GetHashCode(m_high, m_low);
+            return HashCode.Combine(m_high, m_low);
         }
 
-        public override readonly string ToString()
+        public override unsafe string ToString()
         {
-            return IUUID.ToString(m_high, m_low);
+            fixed (void* pointer = &this)
+            {
+                return IUUID.ToString(pointer);
+            }
         }
 
         #endregion override method

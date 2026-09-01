@@ -1,0 +1,17 @@
+{
+    "name": "NotBura.Core.Tests",
+    "rootNamespace": "",
+    "references": [
+        "GUID:c0dd0d10738d4ad4a9de57c559d0ca1b",
+        "GUID:af13918b21cef594cbc6f5699b983bc3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

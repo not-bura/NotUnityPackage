@@ -1,6 +1,8 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
 namespace NotBura.Core
@@ -8,52 +10,19 @@ namespace NotBura.Core
     public interface IUUID
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(ulong fromHigh, ulong fromLow, ulong toHigh, ulong toLow)
-        {
-            return fromHigh == toHigh
-                && fromLow == toLow;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int CompareTo(ulong fromHigh, ulong fromLow, ulong toHigh, ulong toLow)
-        {
-            if (fromHigh > toHigh)
-            {
-                return 1;
-            }
-
-            if (fromHigh < toHigh)
-            {
-                return -1;
-            }
-
-            if (fromLow > toLow)
-            {
-                return 1;
-            }
-
-            if (fromLow < toLow)
-            {
-                return -1;
-            }
-
-            return 0;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (ulong high, ulong low) FromCharSpan(ReadOnlySpan<char> span)
+        public static UUID FromCharSpan(ReadOnlySpan<char> span)
         {
             var high =  ReadValue(span,  0 + 0,  8);
-            high <<= 4 * 4;
+            high <<= 8 * 2;
             high |=     ReadValue(span,  8 + 1,  4);
-            high <<= 4 * 4;
+            high <<= 8 * 2;
             high |=     ReadValue(span, 12 + 2,  4);
 
             var low =   ReadValue(span, 16 + 3,  4);
-            low <<= 12 * 4;
+            low <<= 8 * 6;
             low |=      ReadValue(span, 20 + 4, 12);
 
-            return (high, low);
+            return new(high, low);
 
             static ulong ReadValue(ReadOnlySpan<char> span, int offset, int length)
             {
@@ -77,27 +46,21 @@ namespace NotBura.Core
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int GetHashCode(ulong high, ulong low)
-        {
-            return HashCode.Combine(high, low);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string ToString(ulong high, ulong low)
+        public static unsafe string ToString(void* source)
         {
             var span = (stackalloc char[8 + 1 + 4 + 1 + 4 + 1 + 4 + 1 + 12]);
 
-            SetValue(span,  0 + 0,  8, 0x0000_0000_FFFF_FFFF & (high >> 8 * 4));
-            span[8 + 0] = '-';
-            SetValue(span,  8 + 1,  4, 0x0000_0000_0000_FFFF & (high >> 4 * 4));
+            SetValue(span,  0 + 0,  8, 0x0000_0000_FFFF_FFFF & (*(ulong*)source) >> 32);
+            span[ 8 + 0] = '-';
+            SetValue(span,  8 + 1,  4, 0x0000_0000_0000_FFFF & (*(ulong*)source) >> 16);
             span[12 + 1] = '-';
-            SetValue(span, 12 + 2,  4, 0x0000_0000_0000_FFFF & (high));
+            SetValue(span, 12 + 2,  4, 0x0000_0000_0000_FFFF & *(ulong*)source);
             span[16 + 2] = '-';
-            SetValue(span, 16 + 3,  4, 0x0000_0000_0000_FFFF & (low >> 12 * 4));
+            SetValue(span, 16 + 3,  4, 0x0000_0000_0000_FFFF & (*((ulong*)source + 1)) >> 48);
             span[20 + 3] = '-';
-            SetValue(span, 20 + 4, 12, 0x0000_FFFF_FFFF_FFFF & (low));
+            SetValue(span, 20 + 4, 12, 0x0000_FFFF_FFFF_FFFF & *((ulong*)source + 1));
 
-            return new string(span);
+            return new(span);
 
             static void SetValue(Span<char> span, int offset, int length, ulong value)
             {
@@ -120,15 +83,18 @@ namespace NotBura.Core
         }
     }
 
+#if UNITY_EDITOR
+    [DebuggerDisplay("{ToString()}")]
+#endif
     [Serializable]
-    [StructLayout(LayoutKind.Sequential, Pack = 16)]
+    [StructLayout(LayoutKind.Explicit)]
     public struct UUID
         : IUUID
         , IEquatable<UUID>
         , IComparable<UUID>
     {
-        [SerializeField] private ulong m_high;
-        [SerializeField] private ulong m_low;
+        [FieldOffset(0)] [SerializeField] private ulong m_high;
+        [FieldOffset(8)] [SerializeField] private ulong m_low;
 
         public UUID(ulong high, ulong low)
         {
@@ -136,38 +102,46 @@ namespace NotBura.Core
             m_low = low;
         }
 
-        public readonly bool Equals(UUID other)
+        public unsafe bool Equals(UUID other)
         {
-            return IUUID.Equals(m_high, m_low, other.m_high, other.m_low);
+            fixed (void* pointer = &this)
+            {
+                return UnsafeUtility.MemCmp(pointer, &other, 16) == 0;
+            }
         }
 
-        public readonly int CompareTo(UUID other)
+        public unsafe int CompareTo(UUID other)
         {
-            return IUUID.CompareTo(m_high, m_low, other.m_high, other.m_low);
+            fixed (void* pointer = &this)
+            {
+                return UnsafeUtility.MemCmp(pointer, &other, 16);
+            }
         }
 
         [Obsolete("Call boxing method.")]
 #pragma warning disable CS0809
-        public override readonly bool Equals(object obj)
+        public override bool Equals(object obj)
 #pragma warning restore CS0809
         {
             return obj is UUID cast && Equals(cast);
         }
 
-        public override readonly int GetHashCode()
+        public override int GetHashCode()
         {
-            return IUUID.GetHashCode(m_high, m_low);
+            return HashCode.Combine(m_high, m_low);
         }
 
-        public override readonly string ToString()
+        public override unsafe string ToString()
         {
-            return IUUID.ToString(m_high, m_low);
+            fixed (void* pointer = &this)
+            {
+                return IUUID.ToString(pointer);
+            }
         }
 
         public static UUID FromCharSpan(ReadOnlySpan<char> span)
         {
-            var result = IUUID.FromCharSpan(span);
-            return new(result.high, result.low);
+            return IUUID.FromCharSpan(span);
         }
     }
 }
