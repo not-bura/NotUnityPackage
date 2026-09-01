@@ -15,7 +15,6 @@ namespace NotBura.Packages
 
     [NativeContainer]
     [NativeContainerIsReadOnly]
-    [NativeContainerSupportsDeallocateOnJobCompletion]
 #if UNITY_EDITOR
     [DebuggerDisplay("Encode = {(m_state & 0x80_00_00_00) == 0 ? \"UTF16\" : \"UTF8\"} Length = {m_state & 0x7F_FF_FF_FF}")]
     [DebuggerTypeProxy(typeof(NativeStringTableDebugView))]
@@ -36,12 +35,22 @@ namespace NotBura.Packages
         internal Allocator m_AllocatorLabel;
 
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
-
         // NOTE: "m_Safety"固定である必要がある
         internal AtomicSafetyHandle m_Safety;
         private static int s_staticSafetyId = AtomicSafetyHandle.NewStaticSafetyId<NativeStringTable>();
-
 #endif
+
+        public unsafe bool IsValid
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => m_buffer != null;
+        }
+
+        public unsafe bool IsInvalid
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => m_buffer == null;
+        }
 
         public int Length
         {
@@ -58,30 +67,7 @@ namespace NotBura.Packages
         public bool IsUTF8
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => (m_state & MASK_ENCODE) != 0;
-        }
-
-        public unsafe bool IsValid
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => m_buffer != null;
-        }
-
-        public unsafe bool IsInvalid
-        {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => m_buffer == null;
-        }
-
-        public unsafe void* Buffer
-        {
-            get
-            {
-#if ENABLE_UNITY_COLLECTIONS_CHECKS
-                AtomicSafetyHandle.CheckReadAndThrow(m_Safety);
-#endif
-                return m_buffer;
-            }
+            get => m_state < 0;
         }
 
         public unsafe NativeString this[int index]
@@ -133,9 +119,9 @@ namespace NotBura.Packages
         public unsafe void Dispose()
         {
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
-            if (m_AllocatorLabel != Allocator.None && false == AtomicSafetyHandle.IsDefaultValue(in m_Safety))
+            if (m_AllocatorLabel != Allocator.None && false == AtomicSafetyHandle.IsDefaultValue(m_Safety))
             {
-                AtomicSafetyHandle.CheckExistsAndThrow(in m_Safety);
+                AtomicSafetyHandle.CheckExistsAndThrow(m_Safety);
             }
 #endif
 
@@ -159,9 +145,7 @@ namespace NotBura.Packages
             if (m_AllocatorLabel > Allocator.None)
             {
 #if ENABLE_UNITY_COLLECTIONS_CHECKS
-                ref var safety = ref m_Safety;
-                AtomicSafetyHandle.CheckDeallocateAndThrow(safety);
-                AtomicSafetyHandle.Release(safety);
+                CollectionHelper.DisposeSafetyHandle(ref m_Safety);
 #endif
                 UnsafeUtility.FreeTracked(m_buffer, m_AllocatorLabel);
                 m_AllocatorLabel = Allocator.Invalid;

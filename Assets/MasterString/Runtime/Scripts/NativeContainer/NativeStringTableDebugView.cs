@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System;
+using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 
 namespace NotBura.Packages
@@ -64,6 +65,25 @@ namespace NotBura.Packages
                 }
                 else
                 {
+                    var table = (uint*)target.m_buffer;
+                    var buffer = (byte*)((uint*)target.m_buffer + length);
+
+                    var span = array.AsSpan();
+                    for (int i = 0, loop = length - 1; i < loop; ++i)
+                    {
+                        var offset = table[i];
+                        var size = (int)(table[i + 1] - offset);
+
+                        span[i] = new((char*)(void*)(buffer + offset), 0, size);
+                    }
+
+                    {
+                        var last = length - 1;
+                        var offset = table[last];
+                        var size = (int)((target.m_bufferSize - (length * sizeof(uint))) - offset) >> 1;
+                        span[last] = new((char*)(void*)(buffer + offset), 0, size);
+                    }
+
                 }
 
                 return array;

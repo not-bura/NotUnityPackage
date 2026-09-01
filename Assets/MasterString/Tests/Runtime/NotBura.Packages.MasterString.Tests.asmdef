@@ -2,7 +2,8 @@
     "name": "NotBura.Packages.MasterString.Tests",
     "rootNamespace": "NotBura.Packages",
     "references": [
-        "GUID:0b75268664dae9945b224ef03d9a064e"
+        "GUID:0b75268664dae9945b224ef03d9a064e",
+        "GUID:c0dd0d10738d4ad4a9de57c559d0ca1b"
     ],
     "includePlatforms": [
         "Editor"
