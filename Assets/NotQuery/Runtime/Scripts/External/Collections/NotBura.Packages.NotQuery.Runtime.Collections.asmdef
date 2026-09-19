@@ -3,7 +3,8 @@
     "rootNamespace": "NotBura.Packages",
     "references": [
         "GUID:5b8acb698be3a88448773a5f93b802e9",
-        "GUID:e0cd26848372d4e5c891c569017e11f1"
+        "GUID:e0cd26848372d4e5c891c569017e11f1",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -14,6 +15,12 @@
     ],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": true
+    "versionDefines": [
+        {
+            "name": "com.cysharp.unitask",
+            "expression": "",
+            "define": "ENABLE_UNITASK"
+        }
+    ],
+    "noEngineReferences": false
 }

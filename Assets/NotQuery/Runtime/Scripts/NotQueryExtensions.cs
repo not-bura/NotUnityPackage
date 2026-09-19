@@ -6,6 +6,11 @@ namespace NotBura.Packages
 {
     public static class NotQueryExtensions
     {
+        public static NotQuery<ArrayIterator<T>, T> AsQuery<T>(this T[] source)
+        {
+            return new(new(source));
+        }
+
         public static NotQuery<ManagedIterator<T>, T> AsQuery<T>(this IEnumerable<T> source)
         {
             return new(new(source));
@@ -69,6 +74,28 @@ namespace NotBura.Packages
             where TIterator : struct, INotQueryIterator<T>
         {
             return new(source.Iterator.ToTake(count));
+        }
+
+        public static T[] ToArray<TIterator, T>(this NotQuery<TIterator, T> source)
+            where TIterator : struct, INotQueryIterator<T>
+        {
+            return ToList(source).ToArray();
+        }
+
+        public static List<T> ToList<TIterator, T>(
+            this NotQuery<TIterator, T> source
+        )
+            where TIterator : struct, INotQueryIterator<T>
+        {
+            var _result = new List<T>();
+
+            var _iterator = source.Iterator;
+            while (_iterator.TryMoveNext(out var _current))
+            {
+                _result.Add(_current);
+            }
+
+            return _result;
         }
     }
 }

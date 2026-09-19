@@ -6,7 +6,7 @@ namespace NotBura.Packages
     internal struct ManagedContext
     {
         public object Source;
-        public int State;
+        public uint State;
         public ManagedContext(object source)
         {
             Source = source;
@@ -44,7 +44,7 @@ namespace NotBura.Packages
         {
             var _cast = Unsafe.As<T[]>(context.Source);
 
-            if ((uint)context.State >= (uint)_cast.Length)
+            if (context.State >= (uint)_cast.Length)
             {
                 return false;
             }
@@ -58,12 +58,12 @@ namespace NotBura.Packages
         {
             var _cast = Unsafe.As<List<T>>(context.Source);
 
-            if ((uint)context.State < (uint)_cast.Count)
+            if (context.State >= (uint)_cast.Count)
             {
                 return false;
             }
 
-            result = _cast[context.State];
+            result = _cast[unchecked((int)context.State)];
             ++context.State;
             return true;
         }
@@ -72,12 +72,12 @@ namespace NotBura.Packages
         {
             var _cast = Unsafe.As<IList<T>>(context.Source);
 
-            if ((uint)context.State < (uint)_cast.Count)
+            if (context.State >= (uint)_cast.Count)
             {
                 return false;
             }
 
-            result = _cast[context.State];
+            result = _cast[unchecked((int)context.State)];
             ++context.State;
             return true;
         }
@@ -86,12 +86,12 @@ namespace NotBura.Packages
         {
             var _cast = Unsafe.As<IReadOnlyList<T>>(context.Source);
 
-            if ((uint)context.State < (uint)_cast.Count)
+            if (context.State >= (uint)_cast.Count)
             {
                 return false;
             }
 
-            result = _cast[context.State];
+            result = _cast[unchecked((int)context.State)];
             ++context.State;
             return true;
         }
@@ -111,14 +111,14 @@ namespace NotBura.Packages
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             static IEnumerator<T> Get(ref ManagedContext context)
             {
-                if (context.State != 0)
+                if (context.State is not 0)
                 {
                     return Unsafe.As<IEnumerator<T>>(context.Source);
                 }
 
                 var enumerator = Unsafe.As<IEnumerable<T>>(context.Source).GetEnumerator();
                 context.Source = enumerator;
-                context.State = -1;
+                context.State = 1;
 
                 return enumerator;
             }

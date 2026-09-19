@@ -23,7 +23,7 @@ namespace NotBura.Packages.Tests
         }
 
         [Test, Performance]
-        public void SpeedLinqWhereTest()
+        public void SpeedWhereSelectLinqTest()
         {
             var _measurement = Measure.Method(Impl);
             Run(_measurement);
@@ -43,7 +43,7 @@ namespace NotBura.Packages.Tests
         }
 
         [Test, Performance]
-        public void SpeedQueryWhereSelectTest()
+        public void SpeedWhereSelectQueryTest()
         {
             var _measurement = Measure.Method(Impl);
             Run(_measurement);
@@ -64,7 +64,7 @@ namespace NotBura.Packages.Tests
         }
 
         [Test, Performance]
-        public void SpeedQueryWhereTest()
+        public void SpeedWhereSelectQueryNoOptimizedTest()
         {
             var _measurement = Measure.Method(Impl);
             Run(_measurement);
@@ -75,7 +75,7 @@ namespace NotBura.Packages.Tests
                 var _query = _source
                     .AsQuery()
                     .Where(x => x % 2 == 0)
-                    .Select<Where<ManagedIterator<int>, int>, int, float>(x => (float)x)
+                    .Select<Where<ArrayIterator<int>, int>, int, float>(x => (float)x)
                     ;
 
                 foreach (var _value in _query)
@@ -85,7 +85,7 @@ namespace NotBura.Packages.Tests
         }
 
         [Test, Performance]
-        public void SpeedLinqSkipTest()
+        public void SpeedSkipLinqTest()
         {
             var _measurement = Measure.Method(Impl);
             Run(_measurement);
@@ -104,7 +104,7 @@ namespace NotBura.Packages.Tests
         }
 
         [Test, Performance]
-        public void SpeedQuerySkipTest()
+        public void SpeedSkipQueryTest()
         {
             var _measurement = Measure.Method(Impl);
             Run(_measurement);
@@ -124,7 +124,7 @@ namespace NotBura.Packages.Tests
         }
 
         [Test, Performance]
-        public void SpeedLinqTakeTest()
+        public void SpeedTakeLinqTest()
         {
             var _measurement = Measure.Method(Impl);
             Run(_measurement);
@@ -143,7 +143,7 @@ namespace NotBura.Packages.Tests
         }
 
         [Test, Performance]
-        public void SpeedQueryTakeTest()
+        public void SpeedTakeQueryTest()
         {
             var _measurement = Measure.Method(Impl);
             Run(_measurement);
@@ -163,7 +163,7 @@ namespace NotBura.Packages.Tests
         }
 
         [Test, Performance]
-        public void SpeedLinqSkipTakeTest()
+        public void SpeedSkipTakeLinqTest()
         {
             var _measurement = Measure.Method(Impl);
             Run(_measurement);
@@ -183,7 +183,7 @@ namespace NotBura.Packages.Tests
         }
 
         [Test, Performance]
-        public void SpeedQuerySkipTakeTest()
+        public void SpeedSkipTakeQueryTest()
         {
             var _measurement = Measure.Method(Impl);
             Run(_measurement);
