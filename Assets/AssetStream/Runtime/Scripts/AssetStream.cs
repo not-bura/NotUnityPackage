@@ -1,11 +1,13 @@
 using Cysharp.Threading.Tasks;
+using System;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
 using CT = System.Threading.CancellationToken;
 
 namespace NotBura.Packages
 {
-    public class AssetStream
+    public sealed class AssetStream
+        : IDisposable
     {
         private Dictionary<AssetIdentifier, string> m_pathTable;
         private Dictionary<AssetIdentifier, object> m_cacheTable;
@@ -16,12 +18,47 @@ namespace NotBura.Packages
             m_cacheTable = new();
         }
 
-        public void Add((AssetIdentifier, string)[] values)
+        ~AssetStream()
+        {
+            DisposeInternal(false);
+        }
+
+        public void Dispose()
+        {
+            DisposeInternal(true);
+            GC.SuppressFinalize(this);
+        }
+
+        private void DisposeInternal(bool disposing)
+        {
+            var _table = m_cacheTable;
+            foreach (var _value in _table)
+            {
+                Addressables.Release(_value.Value);
+            }
+
+            _table.Clear();
+
+            if (disposing)
+            {
+                if (m_pathTable is not null)
+                {
+                    m_pathTable = null!;
+                }
+
+                if (m_cacheTable is not null)
+                {
+                    m_cacheTable = null!;
+                }
+            }
+        }
+
+        public void Add((AssetIdentifier Key, string Address)[] values)
         {
             for (int i = 0; i < values.Length; ++i)
             {
                 var _value = values[i];
-                m_pathTable.Add(_value.Item1, _value.Item2);
+                m_pathTable.Add(_value.Key, _value.Address);
             }
         }
 
