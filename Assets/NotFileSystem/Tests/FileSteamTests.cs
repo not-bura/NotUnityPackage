@@ -5,6 +5,7 @@ using System.IO;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.PerformanceTesting;
 using Unity.PerformanceTesting.Measurements;
+using UnityEditor;
 
 public sealed class FileSteamTests
 {
@@ -15,7 +16,13 @@ public sealed class FileSteamTests
     public void SetUp()
     {
         m_path= Path.GetFullPath("Assets/test.txt");
-        m_text = "前回のジュプトルパーティに偽装して視聴者を騙すロマンギミックパーティ【ポケモンSV】【ゆっくり実況】【ダブルバトル】";
+        m_text = "寿限無寿限無後光の擦り切れ";
+    }
+
+    [OneTimeTearDown]
+    public void TearDown()
+    {
+        AssetDatabase.Refresh();
     }
 
     [Test]
