@@ -1,0 +1,17 @@
+{
+    "name": "NotBura.Packages.NotFileSystem.Runtime",
+    "rootNamespace": "NotBura.Paclages",
+    "references": [],
+    "includePlatforms": [
+        "Editor",
+        "WindowsStandalone64"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": true,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}

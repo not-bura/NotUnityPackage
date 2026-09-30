@@ -1,0 +1,21 @@
+{
+    "name": "NotBura.Packages.NotFileSystem.Runtime.Tests",
+    "rootNamespace": "",
+    "references": [
+        "GUID:05446b7c6d792b54fb93d1ae69a3cbab",
+        "GUID:c0dd0d10738d4ad4a9de57c559d0ca1b"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
