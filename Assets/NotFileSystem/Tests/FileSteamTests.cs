@@ -15,7 +15,7 @@ public sealed class FileSteamTests
     [OneTimeSetUp]
     public void SetUp()
     {
-        m_path= Path.GetFullPath("Assets/test.txt");
+        m_path = Path.GetFullPath("Assets/test.txt");
         m_text = "寿限無寿限無後光の擦り切れ";
     }
 

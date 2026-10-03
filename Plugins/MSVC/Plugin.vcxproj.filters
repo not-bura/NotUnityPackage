@@ -11,7 +11,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="src\Windows\File.cpp">
+    <ClCompile Include="src\Windows\File.hpp">
       <Filter>Windows</Filter>
     </ClCompile>
   </ItemGroup>
