@@ -1,0 +1,14 @@
+{
+    "name": "NotBura.Packages.NotNetwork.Runtime",
+    "rootNamespace": "NotBura.Packages",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

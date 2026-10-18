@@ -1,0 +1,8 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Release" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Plugin.vcxproj" Id="30b4a73b-9836-4153-b724-44cce83692dd" />
+</Solution>
